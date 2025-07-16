@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+   font-family: "Outfit", sans-serif;
+}
+
+.bg-custom{
+   background-image: url('./assets/bg_img.png');
+}
+
+.bg-c-gradient{
+   background: linear-gradient(to bottom right, #bfdbfe, #a78bfa);
+}
+
+.bg-custom-card{
+   background-color: #0f172a !important;
+}
+
+.bg-button-color{
+   background: linear-gradient(to right, #6366F1, #312E81);
+}
+
+.cursor-pointer{
+   cursor: pointer;
+}
+
+.bg-c-color {
+  background-color: #f3f4f6; 
+}
+
+.bg-c-hover:hover {
+  background-color: #e5e7eb; 
+}
+
+.form-floating > label {
+  color: #ffffff !important; /* or any color you want */
+}
+
+.bg-custom-dark{
+   background-color: #333A5C !important;
+}
+
+.hover-color:hover{
+   color: white !important;
+}
