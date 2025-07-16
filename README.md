@@ -2,8 +2,8 @@
 SecureSign is a full-stack authentication project using the MERN stack (MongoDB, Express, React, Node.js).
 
 <h2> ✨ Features </h2>
-- Register with email & password <br>
-- Login & logout functionality  <br>
+<li> Register with email & password </li> <br>
+<li> Login & logout functionality </li>  <br>
 - Email verification system  <br>
 - Reset password via OTP   <br>
 - JWT-based session management  <br>
