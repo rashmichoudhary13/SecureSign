@@ -8,13 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { backendUrl, setIsLoggedIn, getUserData} = useApp();
+  const { backendUrl, setIsLoggedIn, getUserData } = useApp();
 
   const onSubmitHandler = async (e) => {
     try {
@@ -40,41 +41,62 @@ const Login = () => {
 
   return (
     <div className="min-vh-100 d-flex flex-column bg-c-gradient">
-      <div className='mt-4' style={{ marginLeft: '4rem' }} onClick={() => navigate('/')}>
-        <Image src={assets.logo} />
+      <div className='mt-4' style={{ marginLeft: '3rem' }} onClick={() => navigate('/')}>
+        <Image src={assets.logo} style={{ maxWidth: '200px' }} />
       </div>
 
       {/* Login form */}
-      <div className='flex-grow-1 d-flex align-items-center justify-content-center' >
-        <div className='card bg-custom-card text-white rounded-2 p-4 rounded-4' style={{ width: '30%' }}>
-          <div className='card-body'>
-            <div className='text-center'>
-              <h2> Login </h2>
-              <p> Login to your account </p>
+      <Container fluid className="py-5 d-flex align-items-center justify-content-center flex-grow-1">
+        <Row className="w-100 justify-content-center">
+          <Col sm={10} md={8} lg={6} xl={5} xxl={4}>
+            <div className="card bg-custom-card text-white p-4 rounded-4 shadow">
+              <div className="card-body">
+                <div className="text-center mb-3">
+                  <h2>Login</h2>
+                  <p>Login to your account</p>
+                </div>
+
+                <form onSubmit={onSubmitHandler}>
+                  <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
+                    <Form.Control
+                      type="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="bg-custom-dark text-white border-0"
+                    />
+                  </FloatingLabel>
+
+                  <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3">
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="bg-custom-dark text-white border-0"
+                    />
+                  </FloatingLabel>
+
+                  <p className="my-3 text-primary cursor-pointer" onClick={() => navigate('/reset-password')}>
+                    Forgot Password?
+                  </p>
+
+                  <Button type="submit" className="w-100 rounded-5 mb-3 bg-button-color border-0">
+                    Login
+                  </Button>
+                </form>
+
+                <p className="text-center">
+                  Don't have an account?{' '}
+                  <span className="text-primary text-decoration-underline cursor-pointer" onClick={() => navigate('/register')}>
+                    Sign Up
+                  </span>
+                </p>
+              </div>
             </div>
-
-            <form onSubmit={onSubmitHandler}>
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Email address"
-                className="mb-3"
-              >
-                <Form.Control type="email" placeholder="name@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className='bg-custom-dark text-white border-0' />
-              </FloatingLabel>
-              <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className='bg-custom-dark text-white border-0'/>
-              </FloatingLabel>
-
-              <p className='my-4 text-primary cursor-pointer' onClick={() => navigate('/reset-password')}> Forgot Password? </p>
-
-              <Button type="submit" className='w-100 rounded-5 mb-3 bg-button-color border-0'>Login</Button>
-            </form>
-
-            <p className='text-center'> Don't have an account? <span className='text-primary text-decoration-underline cursor-pointer' onClick={() => navigate('/register')}> Sign Up </span></p>
-          </div>
-
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
 
 
     </div>

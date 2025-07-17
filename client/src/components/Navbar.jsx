@@ -56,7 +56,7 @@ const Nav = () => {
         <div>
             <Navbar className="bg-body-tertiary py-3" >
                 <Container>
-                    <Image src={assets.logo} />
+                    <Image src={assets.logo} style={{maxWidth: '140px'}}/>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
                         {userData ? (

@@ -43,3 +43,19 @@
 .hover-color:hover{
    color: white !important;
 }
+
+.image-c-width{
+   width: 40%;
+}
+
+
+/* Responsiveness */
+@media (min-width: 768px) {
+   .custom-width{
+      width: 40%;
+   }
+
+   .image-c-width{
+      width: 20%;
+   }
+}

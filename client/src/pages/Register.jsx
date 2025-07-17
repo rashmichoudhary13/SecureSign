@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -40,13 +41,16 @@ const Register = () => {
 
   return (
     <div className="min-vh-100 d-flex flex-column bg-c-gradient">
-      <div className='mt-3' style={{ marginLeft: '4rem' }} onClick={() => navigate('/')}>
-        <Image src={assets.logo} />
+      <div className='mt-3' style={{ marginLeft: '3rem' }} onClick={() => navigate('/')}>
+        <Image src={assets.logo} style={{ maxWidth: '200px' }} />
       </div>
 
       {/* Register form */}
-      <div className='flex-grow-1 d-flex align-items-center justify-content-center' >
-        <div className='card bg-custom-card text-white rounded-2 p-4 rounded-4' style={{ width: '30%' }}>
+      {/* <div className='flex-grow-1 d-flex align-items-center justify-content-center' > */}
+       <Container fluid className='d-flex flex-column align-items-center justify-content-center flex-grow-1'>
+        <Row className='w-100 justify-content-center'>
+          <Col sm={10} md={8} lg={6} xl={5} xxl={4}>
+          <div className='card bg-custom-card text-white p-2 p-md-4 rounded-4'>
           <div className='card-body'>
             <div className='text-center'>
               <h2> Create Account </h2>
@@ -82,7 +86,9 @@ const Register = () => {
           </div>
 
         </div>
-      </div>
+          </Col>
+        </Row>
+       </Container>
 
 
     </div>

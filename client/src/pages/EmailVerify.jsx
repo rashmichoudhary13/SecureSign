@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import OtpForm from '../components/OtpForm';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const EmailVerify = () => {
 
@@ -44,17 +45,19 @@ const EmailVerify = () => {
 
   return (
     <div className="min-vh-100 d-flex flex-column bg-c-gradient">
-      <div className='mt-3' style={{ marginLeft: '4rem' }} onClick={() => navigate('/')}>
-        <Image src={assets.logo} />
+      <div className='mt-3' style={{ marginLeft: '3rem' }} onClick={() => navigate('/')}>
+        <Image src={assets.logo} style={{ maxWidth: '200px' }}/>
       </div>
 
       {/* OTP box */}
-      <div className='flex-grow-1 d-flex align-items-center justify-content-center' >
-        <div className='card bg-custom-card text-white rounded-2 p-4 rounded-4' style={{ width: '30%' }}>
+      <Container  fluid className='d-flex flex-column align-items-center justify-content-center flex-grow-1'>
+        <Row className='w-100 justify-content-center'>
+          <Col sm={10} md={8} lg={6} xl={5} xxl={4}>
+           <div className='card bg-custom-card text-white p-1 p-md-4 rounded-4'>
           <div className='card-body'>
             <div className='text-center'>
               <h2> Email verify OTP </h2>
-              <p> Enter the 6-digit code sent to your email id. </p>
+              <p> Enter the 6-digit code sent to your email id</p>
             </div>
 
             <form onSubmit={onSubmitHandler}>
@@ -66,7 +69,9 @@ const EmailVerify = () => {
           </div>
 
         </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </div> 
   )
 }
