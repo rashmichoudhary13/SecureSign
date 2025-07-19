@@ -9,7 +9,7 @@ SecureSign is a full-stack authentication project using the MERN stack (MongoDB,
 -  Modular project structure
   
 # ⚙️ Tech Stack
-**Frontend:**  Vite + React, Bootstrap, react-toastify <br>
+**Frontend:**  Vite + React, React-Bootstrap, react-toastify <br>
 **Backend:**  Node.js, Express.js <br>
 **Database:**  Mongodb (Via mongoose) <br>
 **Auth:**  JWT + Bcrypt <br>
