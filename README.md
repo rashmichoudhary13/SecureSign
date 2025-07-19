@@ -29,11 +29,11 @@ SecureSign is a full-stack authentication project using the MERN stack (MongoDB,
 
 - ## Register Page
 
-  <img width="1919" height="970" alt="image" src="https://github.com/user-attachments/assets/bdbfb3c9-8ebf-4017-aa3c-3700b7f9ec85" />
+  <img width="1919" height="972" alt="image" src="https://github.com/user-attachments/assets/87a84ef9-5a16-4369-aea9-ec09935f7920" />
 
-- ## Loggedin Home Page
+- ## Admin Logged In Page
 
-  <img width="1919" height="969" alt="image" src="https://github.com/user-attachments/assets/301a5386-98e0-4562-bd74-f090e13a2378" />
+  <img width="1918" height="969" alt="image" src="https://github.com/user-attachments/assets/f29fe938-4db1-4bf9-a7f1-b0f3af71d267" />
 
 # Usage
 1. Install Dependencies
