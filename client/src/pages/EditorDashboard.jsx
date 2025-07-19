@@ -1,8 +1,12 @@
 import React from 'react'
+import Nav_bar from '../components/Navbar'
 
 const EditorDashboard = () => {
   return (
-    <div>EditorDashboard</div>
+    <div>
+      <Nav_bar />
+      EditorDashboard
+    </div>
   )
 }
 

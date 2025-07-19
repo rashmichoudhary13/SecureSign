@@ -1,8 +1,12 @@
 import React from 'react'
+import Nav_bar from '../components/Navbar'
 
 const Editor = () => {
   return (
-    <div>Hello Editor!</div>
+    <div>
+      <Nav_bar />
+      Hello Editor!
+    </div>
   )
 }
 

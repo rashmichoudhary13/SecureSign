@@ -1,8 +1,12 @@
 import React from 'react'
+import Nav_bar from '../components/Navbar'
 
 const Admin = () => {
   return (
-    <div>Welcome Admin</div>
+    <div>
+      <Nav_bar />
+      Welcome Admin
+    </div>
   )
 }
 

@@ -48,7 +48,6 @@
    width: 40%;
 }
 
-
 /* Responsiveness */
 @media (min-width: 768px) {
    .custom-width{
@@ -58,4 +57,16 @@
    .image-c-width{
       width: 20%;
    }
+}
+
+@media(max-width: 768px){
+   #main-navbar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
 }

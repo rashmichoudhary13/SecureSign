@@ -23,7 +23,6 @@ const App = () => {
   return (
     <div>
       <ToastContainer />
-
       <Routes>
 
         {!isLoggedIn && (
