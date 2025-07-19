@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js";
 
 export const getUserData = async (req, res) => {
     try{
-        const {userId} = req.body;
+        const userId = req.user.id;
 
         const user = await userModel.findById(userId);
 
@@ -14,6 +14,7 @@ export const getUserData = async (req, res) => {
             success: true,
             userData: {
                 name: user.name,
+                role: user.role,
                 isAccountVerified: user.isAccountVerified,
             }})
 

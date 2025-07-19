@@ -1,13 +1,13 @@
-import bycrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
 import transporter from '../config/nodemailer.js';
 import {EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE} from '../config/emailTemplates.js';
 
 export const register = async(req,res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password, role} = req.body;
 
-    if(!name || !email || !password ){
+    if(!name || !email || !password || !role ){
         return res.json({success: false, message: "Missing Details" })
     }
 
@@ -19,12 +19,12 @@ export const register = async(req,res) => {
             return res.json({success: false, message: "User already exists" })
         }
 
-        const hashedPassword = await bycrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = new userModel({name, email, password: hashedPassword});
+        const user = new userModel({name, email, password: hashedPassword, role});
         await user.save();
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '7d'});
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -67,13 +67,13 @@ export const login = async(req, res) => {
             return res.json({success: false, message: "Invalid Email"})
         }
 
-        const isMatch = await bycrypt.compare(password, user.password)
+        const isMatch = await bcrypt.compare(password, user.password)
 
         if(!isMatch){
             return res.json({success: false, message: "Invalid Credentials"})
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '7d'});
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -105,7 +105,7 @@ export const logout = async(req, res) => {
 //Send Verification OTP to users Email
 export const sendVerifyOtp = async(req, res) => {
     try{
-        const {userId} = req.body;
+        const userId = req.user.id;
 
         const user = await userModel.findById(userId);
 
@@ -131,7 +131,7 @@ export const sendVerifyOtp = async(req, res) => {
 
          try{
             await transporter.sendMail(mailOption);
-            console.log("Otp sent successfully");
+            console.log("Verification Otp sent successfully");
         }catch(err){
             console.log("Error while sending mail: ", err.message)
         }
@@ -143,7 +143,8 @@ export const sendVerifyOtp = async(req, res) => {
 }
 
 export const verifyEamil = async(req, res) => {
-    const {userId, otp } = req.body;
+    const {otp} = req.body;
+    const userId = req.user.id;
 
     if(!otp || !userId){
         return res.json({success: false, message: "Missing Details"}); 
@@ -176,6 +177,7 @@ export const verifyEamil = async(req, res) => {
     }
 }
 
+// Checks if user is authenticated or not  
 export const isAuthenticated = async(req, res) => {
     try{
         return res.json({success: true})

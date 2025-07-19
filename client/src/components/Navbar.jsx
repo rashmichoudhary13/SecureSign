@@ -1,63 +1,88 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { assets } from '../assets/assets';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import { Link, useNavigate } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const Nav = () => {
+const Nav_bar = () => {
     const navigate = useNavigate();
 
-    const { backendUrl, userData, setUserData, setIsLoggedIn } = useApp();
+    const { backendUrl, userData, setUserData, setIsLoggedIn, isLoggedIn } = useApp();
     const [dropDown, setDropDown] = useState(false);
 
-    const sendVerificationOtp = async() => {
-        try{
+    console.log("nav logged status: ", isLoggedIn);
+    const navItems = [
+        {label: "Admin", path: "/admin", roles: ['guest', 'admin']},
+        {label: "Admin Dashboard", path: "/adashboard", roles: ['admin']},
+        {label: "Editor", path: "/editor", roles: ['guest', 'admin','editor']},
+        {label: "Editor Dashboard", path: "/edashboard", roles: ['admin', 'editor']},
+        {label: "Product", path: "/product", roles: ['guest', 'admin', 'editor', 'user']},
+    ]
+
+    const sendVerificationOtp = async () => {
+        try {
             axios.defaults.withCredentials = true;
 
-            const {data} = await axios.post(backendUrl + '/api/auth/send-verify-otp');
+            const { data } = await axios.post(backendUrl + '/api/auth/send-verify-otp');
 
-            if(data.success){
+            if (data.success) {
                 navigate('/email-verify');
                 toast.success(data.message);
-            }else{
+            } else {
                 toast.error(data.message);
             }
 
-        }catch(error){
+        } catch (error) {
             toast.error(error.message);
         }
     }
 
-    const logOutHandler = async() => {
-        try{
+    const logOutHandler = async () => {
+        try {
             axios.defaults.withCredentials = true;
 
-            const {data} = await axios.post(backendUrl + '/api/auth/logout');
+            const { data } = await axios.post(backendUrl + '/api/auth/logout');
 
-            if(data.success){
+            if (data.success) {
                 setIsLoggedIn(false)
                 setUserData(false)
                 navigate('/')
-            }else{
+            } else {
                 toast.error(data.message);
             }
 
-        }catch(error){
+        } catch (error) {
             toast.error(error.message);
         }
     }
-    
+
     return (
         <div>
             <Navbar className="bg-body-tertiary py-3" >
                 <Container>
-                    <Image src={assets.logo} style={{maxWidth: '140px'}}/>
-                    <Navbar.Toggle />
+                    <Image src={assets.logo} style={{ maxWidth: '140px' }} />
+
+                    <Nav className="justify-content-end flex-grow-1 pe-3 gap-3 fs-5 fw-medium">
+                       {navItems.
+                         filter(items => {
+                            const role = isLoggedIn ? userData.role : 'guest';
+                            return items.roles.includes(role)
+                         })
+                         .map(item => (
+                            <Nav.Link href={item.path} key={item.path}>
+                                {item.label}
+                            </Nav.Link>
+                         ))
+
+                       }
+                    </Nav>
+
                     <Navbar.Collapse className="justify-content-end">
                         {userData ? (
                             <div className='position-relative' >
@@ -67,7 +92,7 @@ const Nav = () => {
 
                                 <div onMouseLeave={() => setDropDown(false)} className={`position-absolute end-0 bg-c-color text-black mt-2 p-2 rounded shadow ${dropDown ? 'd-block' : 'd-none'}`}>
                                     <ul className='list-unstyled m-0'>
-                                        { !userData.isAccountVerified && <li onClick={sendVerificationOtp} className='px-2 py-1 cursor-pointer bg-c-hover' style={{ whiteSpace: 'nowrap' }}>Verify Email</li>}
+                                        {!userData.isAccountVerified && <li onClick={sendVerificationOtp} className='px-2 py-1 cursor-pointer bg-c-hover' style={{ whiteSpace: 'nowrap' }}>Verify Email</li>}
                                         <li className='px-2 py-1 cursor-pointer bg-c-hover' onClick={logOutHandler}>Logout</li>
                                     </ul>
                                 </div>
@@ -81,4 +106,4 @@ const Nav = () => {
     )
 }
 
-export default Nav
+export default Nav_bar

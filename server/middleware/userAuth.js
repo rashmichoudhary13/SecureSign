@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
-const userAuth = async (req, res, next) => {
+// Authenticate users
+export const userAuth = async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
@@ -13,11 +14,10 @@ const userAuth = async (req, res, next) => {
   try {
     const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (tokenDecode.id) {
-      if (!req.body) req.body = {};
-      req.body.userId = tokenDecode.id;
+    if (tokenDecode.id && tokenDecode.role) {
+      req.user = tokenDecode;
     } else {
-      return res.json({
+      return res.status(401).json({
         success: false,
         message: "Not Authorized, Login Again.",
       });
@@ -29,4 +29,13 @@ const userAuth = async (req, res, next) => {
   }
 };
 
-export default userAuth;
+export const authorizeRoles = (...allowedRole) => {
+  return (req, res, next) => {
+  
+    if(!allowedRole.includes(req.user.role)){
+      return res.status(403).json({success: false, message: 'Access denied'});
+    }
+
+    next();
+  };
+};

@@ -15,7 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { backendUrl, setIsLoggedIn, getUserData } = useApp();
+  const { backendUrl, getAuthState  } = useApp();
 
   const onSubmitHandler = async (e) => {
     try {
@@ -27,8 +27,7 @@ const Login = () => {
       const { data } = await axios.post(backendUrl + '/api/auth/login', { email, password });
 
       if (data.success) {
-        setIsLoggedIn(true);
-        getUserData();
+        await getAuthState();
         navigate('/')
       } else {
         toast.error(data.message);
