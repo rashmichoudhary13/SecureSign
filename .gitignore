@@ -1,3 +1,7 @@
+#Logs
+logs
+*.logs 
+
 #ignore node modules
 client/node_modules/
 server/node_modules/
@@ -5,3 +9,5 @@ server/node_modules/
 #ignore env files
 client/.env
 server/.env
+
+.DS_Store
