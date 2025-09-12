@@ -18,7 +18,7 @@ const Login = () => {
   const { backendUrl, getAuthState  } = useApp();
 
   const onSubmitHandler = async (e) => {
-    try {
+    try { 
       e.preventDefault();
 
       // to send cookies with request
