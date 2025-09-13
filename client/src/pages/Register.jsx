@@ -68,7 +68,7 @@ const Register = () => {
                   </FloatingLabel>
 
                   <FloatingLabel
-                    controlId="floatingInput"
+                    controlId="floatingEmail"
                     label="Email address"
                     className="mb-3"
                   >
