@@ -18,6 +18,47 @@ SecureSign is a full-stack authentication project using the MERN stack (MongoDB,
 **Auth:**  JWT + Bcrypt <br>
 **Email Service:**  NodeMailer using Brevo SMTP
 
+## 🔗 API Routes
+
+Below are the API endpoints used in the SecureSign application.
+
+---
+
+## 🔐 Authentication Routes (`/api/auth`)
+
+| Method | Route              | Protected | Description                     |
+| ------ | ------------------ | --------- | ------------------------------- |
+| POST   | `/register`        | ❌         | Register a new user             |
+| POST   | `/login`           | ❌         | Login user                      |
+| POST   | `/logout`          | ✅         | Logout user                     |
+| POST   | `/send-verify-otp` | ✅         | Send OTP for email verification |
+| POST   | `/verify-account`  | ✅         | Verify user email using OTP     |
+| GET    | `/is-auth`         | ✅         | Check if user is authenticated  |
+| POST   | `/send-reset-otp`  | ❌         | Send OTP for password reset     |
+| POST   | `/reset-password`  | ❌         | Reset user password             |
+
+📌 **Protected routes** require authentication middleware (`userAuth`)
+
+---
+
+## 👤 User Routes (`/api/user`)
+
+| Method | Route      | Role Access             | Description            |
+| ------ | ---------- | ----------------------- | ---------------------- |
+| GET    | `/data`    | All authenticated users | Get user data          |
+| GET    | `/admin`   | Admin only              | Access admin panel     |
+| GET    | `/editor`  | Admin, Editor           | Access editor features |
+| GET    | `/product` | User, Admin, Editor     | Access product page    |
+
+📌 All UserRoutes are protected.
+
+## 🛡️ Middleware Used
+
+* **`userAuth`** → Verifies if the user is logged in
+* **`authorizeRoles(...)`** → Restricts access based on user roles
+
+---
+
 # 📷 Screenshot
 
 - ## Home Page
